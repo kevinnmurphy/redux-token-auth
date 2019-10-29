@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { ComponentClass } from 'react'
 import { connect } from 'react-redux'
-import {
-  GenerateRequireSignInWrapperConfig,
-  ReduxState,
-  RequireSignInWrapper,
-} from './types'
+import GenerateRequireSignInWrapperConfig from './types'
+import ReduxState from './types'
+import RequireSignInWrapper from './types'
 
 const generateRequireSignInWrapper = (
   { redirectPathIfNotSignedIn }: GenerateRequireSignInWrapperConfig
