@@ -39,7 +39,8 @@ const generateRequireSignInWrapper = (
         console.log(...this.props);
 
         return (hasVerificationBeenAttempted && isSignedIn) ?
-          <PageComponent {...this.props} />
+          //PageComponent {...this.props} />
+          React.createElement(PageComponent.type, __assign({}, this.props))
           :
           <div></div>;
       }
