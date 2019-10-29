@@ -28,7 +28,7 @@ var generateRequireSignInWrapper = function (_a) {
             function GatedPage() {
                 return _super !== null && _super.apply(this, arguments) || this;
             }
-            GatedPage.prototype.componentWillReceiveProps = function (nextProps) {
+            GatedPage.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
                 var history = nextProps.history, hasVerificationBeenAttempted = nextProps.hasVerificationBeenAttempted, isSignedIn = nextProps.isSignedIn;
                 if (hasVerificationBeenAttempted && !isSignedIn) {
                     history.replace(redirectPathIfNotSignedIn);
@@ -37,7 +37,7 @@ var generateRequireSignInWrapper = function (_a) {
             GatedPage.prototype.render = function () {
                 var _a = this.props, hasVerificationBeenAttempted = _a.hasVerificationBeenAttempted, isSignedIn = _a.isSignedIn;
                 return (hasVerificationBeenAttempted && isSignedIn) ?
-                    React.createElement(PageComponent, __assign({}, this.props))
+                    React.createElement(PageComponent.type, __assign({}, this.props))
                     :
                         React.createElement("div", null);
             };
