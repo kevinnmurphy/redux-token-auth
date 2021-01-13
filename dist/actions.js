@@ -100,6 +100,13 @@ exports.setHasVerificationBeenAttempted = function (hasVerificationBeenAttempted
 var generateAuthActions = function (config) {
     var authUrl = config.authUrl, storage = config.storage, userAttributes = config.userAttributes, userRegistrationAttributes = config.userRegistrationAttributes;
     var Storage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage_1.default;
+    var setAdminHeader = function (authUrl) {
+        if (authUrl === '/admin/api/v1') {
+            axios_1.defaults.headers.common[`access-token`] = window.localStorage.getItem('admin-access-token');
+            axios_1.defaults.headers.common[`client`] = window.localStorage.getItem('admin-client');
+            axios_1.defaults.headers.common[`uid`] = window.localStorage.getItem('admin-uid');
+        }
+    }
     var registerUser = function (userRegistrationDetails) { return function (dispatch) {
         return __awaiter(this, void 0, void 0, function () {
             var email, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
@@ -119,7 +126,9 @@ var generateAuthActions = function (config) {
                         });
                         _a.label = 1;
                     case 1:
+
                         _a.trys.push([1, 3, , 4]);
+                        setAdminHeader(authUrl)
                         return [4 /*yield*/, axios_1.default({
                                 method: 'POST',
                                 url: authUrl,
@@ -151,6 +160,7 @@ var generateAuthActions = function (config) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
+                        setAdminHeader(authUrl)
                         return [4 /*yield*/, axios_1.default({
                                 method: 'GET',
                                 url: authUrl + "/validate_token",
@@ -183,6 +193,7 @@ var generateAuthActions = function (config) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
+                        setAdminHeader(authUrl)
                         return [4 /*yield*/, axios_1.default({
                                 method: 'POST',
                                 url: authUrl + "/sign_in",
@@ -229,6 +240,7 @@ var generateAuthActions = function (config) {
                         _c.label = 4;
                     case 4:
                         _c.trys.push([4, 6, , 7]);
+                        setAdminHeader(authUrl)
                         return [4 /*yield*/, axios_1.default({
                                 method: 'DELETE',
                                 url: authUrl + "/sign_out",
