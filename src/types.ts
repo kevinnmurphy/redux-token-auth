@@ -29,11 +29,6 @@ export default interface AuthHeaders {
   readonly client: string
   readonly expiry: string
   readonly uid: string
-  readonly 'admin-access-token': string
-  readonly 'admin-token-type': string
-  readonly 'admin-client': string
-  readonly 'admin-expiry': string
-  readonly 'admin-uid': string
 }
 
 export default interface AuthResponse {

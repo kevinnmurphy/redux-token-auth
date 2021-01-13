@@ -45,15 +45,27 @@ var authHeaderKeys = [
     'expiry',
     'uid',
 ];
-exports.setAuthHeaders = function (headers) {
-    authHeaderKeys.forEach(function (key) {
-        axios_1.default.defaults.headers.common[key] = headers[key];
-    });
+exports.setAuthHeaders = function (headers, authUrl) {
+    if (authUrl === '/admin/api/v1/auth') {
+        authHeaderKeys.forEach((key) => {
+            axios_1.defaults.headers.common[`admin-${key}`] = headers[key]
+        });
+    } else {
+        authHeaderKeys.forEach((key) => {
+            axios_1.defaults.headers.common[key] = headers[key]
+        });
+    }
 };
-exports.persistAuthHeadersInDeviceStorage = function (Storage, headers) {
-    authHeaderKeys.forEach(function (key) {
-        Storage.setItem(key, headers[key]);
-    });
+exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, authUrl) {
+    if (authUrl === '/admin/api/v1/auth') {
+        authHeaderKeys.forEach((key) => {
+          Storage.setItem(`admin-${key}`, headers[key])
+        })
+    } else {
+        authHeaderKeys.forEach((key) => {
+            Storage.setItem(key, headers[key])
+        })
+    }
 };
 exports.deleteAuthHeaders = function () {
     authHeaderKeys.forEach(function (key) {

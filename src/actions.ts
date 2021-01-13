@@ -156,8 +156,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         url: authUrl,
         data,
       })
-      setAuthHeaders(response.headers)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers)
+      setAuthHeaders(response.headers, authUrl)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(registrationRequestSucceeded(userAttributesToSave))
     } catch (error) {
@@ -176,8 +176,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         url: `${authUrl}/validate_token`,
         params: verificationParams,
       })
-      setAuthHeaders(response.headers)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers)
+      setAuthHeaders(response.headers, authUrl)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(verifyTokenRequestSucceeded(userAttributesToSave))
     } catch (error) {
@@ -202,8 +202,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
           password,
         },
       })
-      setAuthHeaders(response.headers)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers)
+      setAuthHeaders(response.headers, authUrl)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(signInRequestSucceeded(userAttributesToSave))
     } catch (error) {

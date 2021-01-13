@@ -13,27 +13,30 @@ const authHeaderKeys: Array<string> = [
   'client',
   'expiry',
   'uid',
-  'admin-access-token',
-  'admin-token-type',
-  'admin-client',
-  'admin-expiry',
-  'admin-uid',
 ]
 
-export const setAuthHeaders = (headers: AuthHeaders): void => {
-  authHeaderKeys.forEach((key: string) => {
-    if (!headers[key]) {
-      
-    } else {
+export const setAuthHeaders = (headers: AuthHeaders, authUrl: string): void => {
+  if (authUrl === '/admin/api/v1/auth') {
+    authHeaderKeys.forEach((key: string) => {
+      axios.defaults.headers.common[`admin-${key}`] = headers[key]
+    })
+  } else {
+    authHeaderKeys.forEach((key: string) => {
       axios.defaults.headers.common[key] = headers[key]
-    }
-  })
+    })
+  }
 }
 
-export const persistAuthHeadersInDeviceStorage = (Storage: DeviceStorage, headers: AuthHeaders): void => {
-  authHeaderKeys.forEach((key: string) => {
-    Storage.setItem(key, headers[key])
-  })
+export const persistAuthHeadersInDeviceStorage = (Storage: DeviceStorage, headers: AuthHeaders,  authUrl: string): void => {
+  if (authUrl === '/admin/api/v1/auth') {
+    authHeaderKeys.forEach((key: string) => {
+      Storage.setItem(`admin-${key}`, headers[key])
+    })
+  } else {
+    authHeaderKeys.forEach((key: string) => {
+      Storage.setItem(key, headers[key])
+    })
+  }
 }
 
 export const deleteAuthHeaders = (): void => {

@@ -127,8 +127,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers);
+                        auth_1.setAuthHeaders(response.headers, authUrl);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.registrationRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
@@ -158,8 +158,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers);
+                        auth_1.setAuthHeaders(response.headers, authUrl);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.verifyTokenRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
@@ -193,8 +193,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers);
+                        auth_1.setAuthHeaders(response.headers, authUrl);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.signInRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
