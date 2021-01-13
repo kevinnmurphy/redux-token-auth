@@ -13,6 +13,11 @@ const authHeaderKeys: Array<string> = [
   'client',
   'expiry',
   'uid',
+  'admin-access-token',
+  'admin-token-type',
+  'admin-client',
+  'admin-expiry',
+  'admin-uid',
 ]
 
 export const setAuthHeaders = (headers: AuthHeaders): void => {
