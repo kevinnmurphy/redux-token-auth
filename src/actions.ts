@@ -240,6 +240,9 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         'access-token': await Storage.getItem('access-token') as string,
         client: await Storage.getItem('client') as string,
         uid: await Storage.getItem('uid') as string,
+        'admin-access-token': await Storage.getItem('admin-access-token') as string,
+        'admin-client': await Storage.getItem('client') as string,
+        'admin-uid': await Storage.getItem('uid') as string,
       }
       store.dispatch<any>(verifyToken(verificationParams))
     } else {

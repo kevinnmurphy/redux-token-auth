@@ -42,6 +42,9 @@ export default interface VerificationParams {
   readonly uid: string
   readonly client: string
   readonly 'access-token': string
+  readonly 'admin-uid': string
+  readonly 'admin-client': string
+  readonly 'access-token': string
 }
 
 export default type REGISTRATION_REQUEST_SENT = 'redux-token-auth/REGISTRATION_REQUEST_SENT'
