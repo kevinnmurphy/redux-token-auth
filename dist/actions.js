@@ -252,6 +252,7 @@ var generateAuthActions = function (config) {
     var verifyCredentials = function (store) { return __awaiter(_this, void 0, void 0, function () {
         var verificationParams, _a, _b;
         return __generator(this, function (_c) {
+            console.log(_c)
             switch (_c.label) {
                 case 0: return [4 /*yield*/, Storage.getItem('access-token')];
                 case 1:
