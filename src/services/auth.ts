@@ -22,7 +22,11 @@ const authHeaderKeys: Array<string> = [
 
 export const setAuthHeaders = (headers: AuthHeaders): void => {
   authHeaderKeys.forEach((key: string) => {
-    axios.defaults.headers.common[key] = headers[key]
+    if (!headers[key]) {
+      axios.defaults.headers.common[key] = window.localStorage.getItem(key)
+    } else {
+      axios.defaults.headers.common[key] = headers[key]
+    }
   })
 }
 
