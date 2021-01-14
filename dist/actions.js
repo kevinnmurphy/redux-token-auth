@@ -102,10 +102,12 @@ var generateAuthActions = function (config) {
     var Storage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage_1.default;
     var setAdminHeader = function (authUrl) {
         if (authUrl === '/admin/api/v1/auth') {
+            console.log('hello')
             axios_1.defaults.headers.common['access-token'] = window.localStorage.getItem('admin-access-token');
             axios_1.defaults.headers.common['client'] = window.localStorage.getItem('admin-client');
             axios_1.defaults.headers.common['uid'] = window.localStorage.getItem('admin-uid');
         }
+        console.log(axios_1.defaults.headers.common)
     }
     var registerUser = function (userRegistrationDetails) { return function (dispatch) {
         return __awaiter(this, void 0, void 0, function () {
