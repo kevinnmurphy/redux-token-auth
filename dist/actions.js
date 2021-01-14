@@ -248,8 +248,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 5:
                         _c.sent();
-                        auth_1.deleteAuthHeaders();
-                        auth_1.deleteAuthHeadersFromDeviceStorage(Storage);
+                        auth_1.deleteAuthHeaders(authUrl);
+                        auth_1.deleteAuthHeadersFromDeviceStorage(Storage, authUrl);
                         dispatch(exports.signOutRequestSucceeded());
                         return [3 /*break*/, 7];
                     case 6:

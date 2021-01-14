@@ -67,16 +67,31 @@ exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, authUrl)
         })
     }
 };
-exports.deleteAuthHeaders = function () {
+exports.deleteAuthHeaders = function (authUrl) {
     authHeaderKeys.forEach(function (key) {
         delete axios_1.default.defaults.headers.common[key];
+        if (authUrl === '/admin/api/v1/auth') {
+            authHeaderKeys.forEach((key) => {
+                delete axios_1.defaults.headers.common[`admin-${key}`];
+            });
+        } else {
+            authHeaderKeys.forEach((key) => {
+                delete axios_1.defaults.headers.common[key];
+            });
+        }
     });
 };
-exports.deleteAuthHeadersFromDeviceStorage = function (Storage) { return __awaiter(_this, void 0, void 0, function () {
+exports.deleteAuthHeadersFromDeviceStorage = function (Storage, authUrl) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        authHeaderKeys.forEach(function (key) {
-            Storage.removeItem(key);
-        });
+        if (authUrl === '/admin/api/v1/auth') {
+            authHeaderKeys.forEach(function (key) {
+                Storage.removeItem(`admin-${key}`);
+            });
+        } else {
+            authHeaderKeys.forEach(function (key) {
+                Storage.removeItem(key);
+            });
+        }
         return [2 /*return*/];
     });
 }); };
