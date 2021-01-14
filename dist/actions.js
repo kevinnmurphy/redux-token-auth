@@ -261,22 +261,39 @@ var generateAuthActions = function (config) {
             });
         });
     }; };
-    var verifyCredentials = function (store) { return __awaiter(_this, void 0, void 0, function () {
+    var verifyCredentials = function (store, authUrl) { return __awaiter(_this, void 0, void 0, function () {
         var verificationParams, _a, _b;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, Storage.getItem('access-token')];
+                case 0: 
+                    if (authUrl === '/admin/api/v1/auth') {
+                        return [4 /*yield*/, Storage.getItem('admin-access-token')];
+                    } else {
+                        return [4 /*yield*/, Storage.getItem('access-token')];
+                    }
                 case 1:
                     if (!_c.sent()) return [3 /*break*/, 5];
                     _a = {};
                     _b = 'access-token';
-                    return [4 /*yield*/, Storage.getItem('access-token')];
+                    if (authUrl === '/admin/api/v1/auth') {
+                        return [4 /*yield*/, Storage.getItem('admin-access-token')];
+                    } else {
+                        return [4 /*yield*/, Storage.getItem('access-token')];
+                    }
                 case 2:
                     _a[_b] = (_c.sent());
-                    return [4 /*yield*/, Storage.getItem('client')];
+                    if (authUrl === '/admin/api/v1/auth') {
+                        return [4 /*yield*/, Storage.getItem('admin-client')];
+                    } else {
+                        return [4 /*yield*/, Storage.getItem('client')];
+                    }
                 case 3:
                     _a.client = (_c.sent());
-                    return [4 /*yield*/, Storage.getItem('uid')];
+                    if (authUrl === '/admin/api/v1/auth') {
+                        return [4 /*yield*/, Storage.getItem('admin-uid')];
+                    } else {
+                        return [4 /*yield*/, Storage.getItem('uid')];
+                    }
                 case 4:
                     verificationParams = (_a.uid = (_c.sent()),
                         _a);
