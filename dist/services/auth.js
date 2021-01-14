@@ -59,7 +59,7 @@ exports.setAuthHeaders = function (headers, authUrl) {
 exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, authUrl) {
     if (authUrl === '/admin/api/v1/auth') {
         authHeaderKeys.forEach((key) => {
-          Storage.setItem(`admin-${key}`, headers[key])
+            Storage.setItem(`admin-${key}`, headers[key])
         })
     } else {
         authHeaderKeys.forEach((key) => {
