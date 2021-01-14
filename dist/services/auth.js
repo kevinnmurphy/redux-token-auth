@@ -55,7 +55,6 @@ exports.setAuthHeaders = function (headers, authUrl) {
             axios_1.defaults.headers.common[key] = headers[key]
         });
     }
-    console.log(axios_1.defaults.headers.common)
 };
 exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, authUrl) {
     if (authUrl === '/admin/api/v1/auth') {

@@ -96,12 +96,11 @@ exports.setHasVerificationBeenAttempted = function (hasVerificationBeenAttempted
 }); };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Async Redux Thunk actions:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////`
 var generateAuthActions = function (config) {
     var authUrl = config.authUrl, storage = config.storage, userAttributes = config.userAttributes, userRegistrationAttributes = config.userRegistrationAttributes;
     var Storage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage_1.default;
     var setAdminHeader = function (authUrl) {
-        console.log(authUrl)
         if (authUrl === '/admin/api/v1/auth') {
             axios_1.defaults.headers.common['access-token'] = window.localStorage.getItem('admin-access-token');
             axios_1.defaults.headers.common['client'] = window.localStorage.getItem('admin-client');
@@ -265,7 +264,6 @@ var generateAuthActions = function (config) {
     var verifyCredentials = function (store) { return __awaiter(_this, void 0, void 0, function () {
         var verificationParams, _a, _b;
         return __generator(this, function (_c) {
-            console.log(_c)
             switch (_c.label) {
                 case 0: return [4 /*yield*/, Storage.getItem('access-token')];
                 case 1:
