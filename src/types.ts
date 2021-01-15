@@ -4,26 +4,26 @@ import {
   Store,
 } from 'redux'
 
-export default interface UserAttributes {
+export interface UserAttributes {
   [key: string]: string | number | null
 }
 
-export default interface User {
+export interface User {
   readonly isSignedIn: boolean
   readonly isLoading: boolean
   readonly hasVerificationBeenAttempted: boolean
   readonly attributes: UserAttributes
 }
 
-export default interface ReduxTokenAuthState {
+export interface ReduxTokenAuthState {
   readonly currentUser: User
 }
 
-export default interface ReduxState {
+export interface ReduxState {
   readonly reduxTokenAuth: ReduxTokenAuthState
 }
 
-export default interface AuthHeaders {
+export interface AuthHeaders {
   readonly 'access-token': string
   readonly 'token-type': string
   readonly client: string
@@ -31,144 +31,141 @@ export default interface AuthHeaders {
   readonly uid: string
 }
 
-export default interface AuthResponse {
+export interface AuthResponse {
   readonly headers: AuthHeaders
   readonly data: {
     readonly data: { [key: string]: any }
   }
 }
 
-export default interface VerificationParams {
+export interface VerificationParams {
   readonly uid: string
   readonly client: string
   readonly 'access-token': string
-  readonly 'admin-uid': string
-  readonly 'admin-client': string
-  readonly 'access-token': string
 }
 
-export default type REGISTRATION_REQUEST_SENT = 'redux-token-auth/REGISTRATION_REQUEST_SENT'
-export default const REGISTRATION_REQUEST_SENT: REGISTRATION_REQUEST_SENT = 'redux-token-auth/REGISTRATION_REQUEST_SENT'
+export type REGISTRATION_REQUEST_SENT = 'redux-token-auth/REGISTRATION_REQUEST_SENT'
+export const REGISTRATION_REQUEST_SENT: REGISTRATION_REQUEST_SENT = 'redux-token-auth/REGISTRATION_REQUEST_SENT'
 
-export default type REGISTRATION_REQUEST_SUCCEEDED = 'redux-token-auth/REGISTRATION_REQUEST_SUCCEEDED'
-export default const REGISTRATION_REQUEST_SUCCEEDED: REGISTRATION_REQUEST_SUCCEEDED = 'redux-token-auth/REGISTRATION_REQUEST_SUCCEEDED'
+export type REGISTRATION_REQUEST_SUCCEEDED = 'redux-token-auth/REGISTRATION_REQUEST_SUCCEEDED'
+export const REGISTRATION_REQUEST_SUCCEEDED: REGISTRATION_REQUEST_SUCCEEDED = 'redux-token-auth/REGISTRATION_REQUEST_SUCCEEDED'
 
-export default type REGISTRATION_REQUEST_FAILED = 'redux-token-auth/REGISTRATION_REQUEST_FAILED'
-export default const REGISTRATION_REQUEST_FAILED: REGISTRATION_REQUEST_FAILED = 'redux-token-auth/REGISTRATION_REQUEST_FAILED'
+export type REGISTRATION_REQUEST_FAILED = 'redux-token-auth/REGISTRATION_REQUEST_FAILED'
+export const REGISTRATION_REQUEST_FAILED: REGISTRATION_REQUEST_FAILED = 'redux-token-auth/REGISTRATION_REQUEST_FAILED'
 
-export default type VERIFY_TOKEN_REQUEST_SENT = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SENT'
-export default const VERIFY_TOKEN_REQUEST_SENT: VERIFY_TOKEN_REQUEST_SENT = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SENT'
+export type VERIFY_TOKEN_REQUEST_SENT = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SENT'
+export const VERIFY_TOKEN_REQUEST_SENT: VERIFY_TOKEN_REQUEST_SENT = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SENT'
 
-export default type VERIFY_TOKEN_REQUEST_SUCCEEDED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SUCCEEDED'
-export default const VERIFY_TOKEN_REQUEST_SUCCEEDED: VERIFY_TOKEN_REQUEST_SUCCEEDED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SUCCEEDED'
+export type VERIFY_TOKEN_REQUEST_SUCCEEDED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SUCCEEDED'
+export const VERIFY_TOKEN_REQUEST_SUCCEEDED: VERIFY_TOKEN_REQUEST_SUCCEEDED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_SUCCEEDED'
 
-export default type VERIFY_TOKEN_REQUEST_FAILED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_FAILED'
-export default const VERIFY_TOKEN_REQUEST_FAILED: VERIFY_TOKEN_REQUEST_FAILED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_FAILED'
+export type VERIFY_TOKEN_REQUEST_FAILED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_FAILED'
+export const VERIFY_TOKEN_REQUEST_FAILED: VERIFY_TOKEN_REQUEST_FAILED = 'redux-token-auth/VERIFY_TOKEN_REQUEST_FAILED'
 
-export default type SIGNIN_REQUEST_SENT = 'redux-token-auth/SIGNIN_REQUEST_SENT'
-export default const SIGNIN_REQUEST_SENT: SIGNIN_REQUEST_SENT = 'redux-token-auth/SIGNIN_REQUEST_SENT'
+export type SIGNIN_REQUEST_SENT = 'redux-token-auth/SIGNIN_REQUEST_SENT'
+export const SIGNIN_REQUEST_SENT: SIGNIN_REQUEST_SENT = 'redux-token-auth/SIGNIN_REQUEST_SENT'
 
-export default type SIGNIN_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNIN_REQUEST_SUCCEEDED'
-export default const SIGNIN_REQUEST_SUCCEEDED: SIGNIN_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNIN_REQUEST_SUCCEEDED'
+export type SIGNIN_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNIN_REQUEST_SUCCEEDED'
+export const SIGNIN_REQUEST_SUCCEEDED: SIGNIN_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNIN_REQUEST_SUCCEEDED'
 
-export default type SIGNIN_REQUEST_FAILED = 'redux-token-auth/SIGNIN_REQUEST_FAILED'
-export default const SIGNIN_REQUEST_FAILED: SIGNIN_REQUEST_FAILED = 'redux-token-auth/SIGNIN_REQUEST_FAILED'
+export type SIGNIN_REQUEST_FAILED = 'redux-token-auth/SIGNIN_REQUEST_FAILED'
+export const SIGNIN_REQUEST_FAILED: SIGNIN_REQUEST_FAILED = 'redux-token-auth/SIGNIN_REQUEST_FAILED'
 
-export default type SIGNOUT_REQUEST_SENT = 'redux-token-auth/SIGNOUT_REQUEST_SENT'
-export default const SIGNOUT_REQUEST_SENT: SIGNOUT_REQUEST_SENT = 'redux-token-auth/SIGNOUT_REQUEST_SENT'
+export type SIGNOUT_REQUEST_SENT = 'redux-token-auth/SIGNOUT_REQUEST_SENT'
+export const SIGNOUT_REQUEST_SENT: SIGNOUT_REQUEST_SENT = 'redux-token-auth/SIGNOUT_REQUEST_SENT'
 
-export default type SIGNOUT_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNOUT_REQUEST_SUCCEEDED'
-export default const SIGNOUT_REQUEST_SUCCEEDED: SIGNOUT_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNOUT_REQUEST_SUCCEEDED'
+export type SIGNOUT_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNOUT_REQUEST_SUCCEEDED'
+export const SIGNOUT_REQUEST_SUCCEEDED: SIGNOUT_REQUEST_SUCCEEDED = 'redux-token-auth/SIGNOUT_REQUEST_SUCCEEDED'
 
-export default type SIGNOUT_REQUEST_FAILED = 'redux-token-auth/SIGNOUT_REQUEST_FAILED'
-export default const SIGNOUT_REQUEST_FAILED: SIGNOUT_REQUEST_FAILED = 'redux-token-auth/SIGNOUT_REQUEST_FAILED'
+export type SIGNOUT_REQUEST_FAILED = 'redux-token-auth/SIGNOUT_REQUEST_FAILED'
+export const SIGNOUT_REQUEST_FAILED: SIGNOUT_REQUEST_FAILED = 'redux-token-auth/SIGNOUT_REQUEST_FAILED'
 
-export default type SET_HAS_VERIFICATION_BEEN_ATTEMPTED = 'redux-token-auth/SET_HAS_VERIFICATION_BEEN_ATTEMPTED'
-export default const SET_HAS_VERIFICATION_BEEN_ATTEMPTED: SET_HAS_VERIFICATION_BEEN_ATTEMPTED = 'redux-token-auth/SET_HAS_VERIFICATION_BEEN_ATTEMPTED'
+export type SET_HAS_VERIFICATION_BEEN_ATTEMPTED = 'redux-token-auth/SET_HAS_VERIFICATION_BEEN_ATTEMPTED'
+export const SET_HAS_VERIFICATION_BEEN_ATTEMPTED: SET_HAS_VERIFICATION_BEEN_ATTEMPTED = 'redux-token-auth/SET_HAS_VERIFICATION_BEEN_ATTEMPTED'
 
-export default interface UserRegistrationDetails {
+export interface UserRegistrationDetails {
   readonly email: string
   readonly password: string
   readonly passwordConfirmation: string
   readonly [key: string]: any
 }
 
-export default interface UserSignInCredentials {
+export interface UserSignInCredentials {
   readonly email: string
   readonly password: string
 }
 
-export default interface UserSignOutCredentials {
+export interface UserSignOutCredentials {
   readonly 'access-token': string
   readonly client: string
   readonly uid: string
 }
 
-export default interface RegistrationRequestSentAction {
+export interface RegistrationRequestSentAction {
   readonly type: REGISTRATION_REQUEST_SENT
 }
 
-export default interface RegistrationRequestSucceededAction {
+export interface RegistrationRequestSucceededAction {
   readonly type: REGISTRATION_REQUEST_SUCCEEDED
   readonly payload: {
     readonly userAttributes: UserAttributes
   }
 }
 
-export default interface RegistrationRequestFailedAction {
+export interface RegistrationRequestFailedAction {
   readonly type: REGISTRATION_REQUEST_FAILED
 }
 
-export default interface VerifyTokenRequestSentAction {
+export interface VerifyTokenRequestSentAction {
   readonly type: VERIFY_TOKEN_REQUEST_SENT
 }
 
-export default interface VerifyTokenRequestSucceededAction {
+export interface VerifyTokenRequestSucceededAction {
   readonly type: VERIFY_TOKEN_REQUEST_SUCCEEDED
   readonly payload: {
     readonly userAttributes: UserAttributes
   }
 }
 
-export default interface VerifyTokenRequestFailedAction {
+export interface VerifyTokenRequestFailedAction {
   readonly type: VERIFY_TOKEN_REQUEST_FAILED
 }
 
-export default interface SignInRequestSentAction {
+export interface SignInRequestSentAction {
   readonly type: SIGNIN_REQUEST_SENT
 }
 
-export default interface SignInRequestSucceededAction {
+export interface SignInRequestSucceededAction {
   readonly type: SIGNIN_REQUEST_SUCCEEDED
   readonly payload: {
     readonly userAttributes: UserAttributes
   }
 }
 
-export default interface SignInRequestFailedAction {
+export interface SignInRequestFailedAction {
   readonly type: SIGNIN_REQUEST_FAILED
 }
 
-export default interface SignOutRequestSentAction {
+export interface SignOutRequestSentAction {
   readonly type: SIGNOUT_REQUEST_SENT
 }
 
-export default interface SignOutRequestSucceededAction {
+export interface SignOutRequestSucceededAction {
   readonly type: SIGNOUT_REQUEST_SUCCEEDED
 }
 
-export default interface SignOutRequestFailedAction {
+export interface SignOutRequestFailedAction {
   readonly type: SIGNOUT_REQUEST_FAILED
 }
 
-export default interface SetHasVerificationBeenAttemptedAction {
+export interface SetHasVerificationBeenAttemptedAction {
   readonly type: SET_HAS_VERIFICATION_BEEN_ATTEMPTED
   readonly payload: {
     readonly hasVerificationBeenAttempted: boolean
   }
 }
 
-export default type ReduxAction = RegistrationRequestSentAction
+export type ReduxAction = RegistrationRequestSentAction
   | RegistrationRequestSucceededAction
   | RegistrationRequestFailedAction
   | VerifyTokenRequestSentAction
@@ -182,11 +179,11 @@ export default type ReduxAction = RegistrationRequestSentAction
   | SignOutRequestFailedAction
   | SetHasVerificationBeenAttemptedAction
 
-export default type ReduxAsyncAction = (input?: any) => (dispatch: Dispatch<{}>) => Promise<void>
+export type ReduxAsyncAction = (input?: any) => (dispatch: Dispatch<{}>) => Promise<void>
 
-export default type VerifyCredentialsFunction = (store: Store<{}>) => void
+export type VerifyCredentialsFunction = (store: Store<{}>) => void
 
-export default interface ActionsExport {
+export interface ActionsExport {
   readonly registerUser: ReduxAsyncAction
   readonly verifyToken: ReduxAsyncAction
   readonly signInUser: ReduxAsyncAction
@@ -194,9 +191,9 @@ export default interface ActionsExport {
   readonly verifyCredentials: VerifyCredentialsFunction
 }
 
-export default type ActionsGeneratorExport = (config: { [key: string]: any }) => ActionsExport
+export type ActionsGeneratorExport = (config: { [key: string]: any }) => ActionsExport
 
-export default interface SingleLayerStringMap {
+export interface SingleLayerStringMap {
   [key: string]: string
 }
 
@@ -204,9 +201,9 @@ export default interface GenerateRequireSignInWrapperConfig {
   readonly redirectPathIfNotSignedIn: string
 }
 
-export default type RequireSignInWrapper = (PageComponent: ComponentClass) => ComponentClass
+export type RequireSignInWrapper = (PageComponent: ComponentClass) => ComponentClass
 
-export default interface DeviceStorage {
+export interface DeviceStorage {
   readonly getItem: (key: string) => Promise<any>
   readonly setItem: (key: string, value: string) => Promise<any>
   readonly removeItem: (key: string) => Promise<any>

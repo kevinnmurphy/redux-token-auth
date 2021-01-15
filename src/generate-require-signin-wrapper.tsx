@@ -35,12 +35,9 @@ const generateRequireSignInWrapper = (
           isSignedIn,
         } = this.props
 
-        console.log('props inside GatedPage render')
-        console.log(...this.props);
-
         return (hasVerificationBeenAttempted && isSignedIn) ?
-          //PageComponent {...this.props} />
-          React.createElement(PageComponent.type, __assign({}, this.props))
+        // React.createElement(PageComponent.type, __assign({}, this.props))
+          <PageComponent {...this.props} />
           :
           <div></div>;
       }

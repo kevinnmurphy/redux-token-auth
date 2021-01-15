@@ -14,8 +14,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -96,17 +96,38 @@ exports.setHasVerificationBeenAttempted = function (hasVerificationBeenAttempted
 }); };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Async Redux Thunk actions:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////`
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var generateAuthActions = function (config) {
-    var authUrl = config.authUrl, storage = config.storage, userAttributes = config.userAttributes, userRegistrationAttributes = config.userRegistrationAttributes;
+    var authUrl = config.authUrl, storage = config.storage, userAttributes = config.userAttributes, userRegistrationAttributes = config.userRegistrationAttributes, localStorageKeysPrefix = config.localStorageKeysPrefix;
     var Storage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage_1.default;
-    var setAdminHeader = function (authUrl) {
-        if (authUrl === '/admin/api/v1/auth') {
-            axios_1.defaults.headers.common['access-token'] = window.localStorage.getItem('admin-access-token');
-            axios_1.defaults.headers.common['client'] = window.localStorage.getItem('admin-client');
-            axios_1.defaults.headers.common['uid'] = window.localStorage.getItem('admin-uid');
-        }
-    }
+    var setHeaders = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        if (!localStorageKeysPrefix) return [3 /*break*/, 4];
+                        _a = axios_1.default.defaults.headers.common;
+                        _b = 'access-token';
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "access-token")];
+                    case 1:
+                        _a[_b] = _g.sent();
+                        _c = axios_1.default.defaults.headers.common;
+                        _d = 'client';
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "client")];
+                    case 2:
+                        _c[_d] = _g.sent();
+                        _e = axios_1.default.defaults.headers.common;
+                        _f = 'uid';
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "uid")];
+                    case 3:
+                        _e[_f] = _g.sent();
+                        _g.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     var registerUser = function (userRegistrationDetails) { return function (dispatch) {
         return __awaiter(this, void 0, void 0, function () {
             var email, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
@@ -127,7 +148,7 @@ var generateAuthActions = function (config) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        setAdminHeader(authUrl)
+                        setHeaders();
                         return [4 /*yield*/, axios_1.default({
                                 method: 'POST',
                                 url: authUrl,
@@ -135,8 +156,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, authUrl);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
+                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.registrationRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
@@ -159,7 +180,7 @@ var generateAuthActions = function (config) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        setAdminHeader(authUrl)
+                        setHeaders();
                         return [4 /*yield*/, axios_1.default({
                                 method: 'GET',
                                 url: authUrl + "/validate_token",
@@ -167,8 +188,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, authUrl);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
+                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.verifyTokenRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
@@ -192,7 +213,7 @@ var generateAuthActions = function (config) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        setAdminHeader(authUrl)
+                        setHeaders();
                         return [4 /*yield*/, axios_1.default({
                                 method: 'POST',
                                 url: authUrl + "/sign_in",
@@ -203,8 +224,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, authUrl);
-                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl);
+                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.signInRequestSucceeded(userAttributesToSave));
                         return [3 /*break*/, 4];
@@ -225,13 +246,13 @@ var generateAuthActions = function (config) {
                     case 0:
                         _a = {};
                         _b = 'access-token';
-                        return [4 /*yield*/, Storage.getItem('access-token')];
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "access-token")];
                     case 1:
                         _a[_b] = (_c.sent());
-                        return [4 /*yield*/, Storage.getItem('client')];
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "client")];
                     case 2:
                         _a.client = (_c.sent());
-                        return [4 /*yield*/, Storage.getItem('uid')];
+                        return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "uid")];
                     case 3:
                         userSignOutCredentials = (_a.uid = (_c.sent()),
                             _a);
@@ -239,7 +260,7 @@ var generateAuthActions = function (config) {
                         _c.label = 4;
                     case 4:
                         _c.trys.push([4, 6, , 7]);
-                        setAdminHeader(authUrl)
+                        setHeaders();
                         return [4 /*yield*/, axios_1.default({
                                 method: 'DELETE',
                                 url: authUrl + "/sign_out",
@@ -247,8 +268,8 @@ var generateAuthActions = function (config) {
                             })];
                     case 5:
                         _c.sent();
-                        auth_1.deleteAuthHeaders(authUrl);
-                        auth_1.deleteAuthHeadersFromDeviceStorage(Storage, authUrl);
+                        auth_1.deleteAuthHeaders(localStorageKeysPrefix);
+                        auth_1.deleteAuthHeadersFromDeviceStorage(Storage, localStorageKeysPrefix);
                         dispatch(exports.signOutRequestSucceeded());
                         return [3 /*break*/, 7];
                     case 6:
@@ -264,35 +285,18 @@ var generateAuthActions = function (config) {
         var verificationParams, _a, _b;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: 
-                    if (authUrl === '/admin/api/v1/auth') {
-                        return [4 /*yield*/, Storage.getItem('admin-access-token')];
-                    } else {
-                        return [4 /*yield*/, Storage.getItem('access-token')];
-                    }
+                case 0: return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "access-token")];
                 case 1:
                     if (!_c.sent()) return [3 /*break*/, 5];
                     _a = {};
                     _b = 'access-token';
-                    if (authUrl === '/admin/api/v1/auth') {
-                        return [4 /*yield*/, Storage.getItem('admin-access-token')];
-                    } else {
-                        return [4 /*yield*/, Storage.getItem('access-token')];
-                    }
+                    return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "access-token")];
                 case 2:
                     _a[_b] = (_c.sent());
-                    if (authUrl === '/admin/api/v1/auth') {
-                        return [4 /*yield*/, Storage.getItem('admin-client')];
-                    } else {
-                        return [4 /*yield*/, Storage.getItem('client')];
-                    }
+                    return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "client")];
                 case 3:
                     _a.client = (_c.sent());
-                    if (authUrl === '/admin/api/v1/auth') {
-                        return [4 /*yield*/, Storage.getItem('admin-uid')];
-                    } else {
-                        return [4 /*yield*/, Storage.getItem('uid')];
-                    }
+                    return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "uid")];
                 case 4:
                     verificationParams = (_a.uid = (_c.sent()),
                         _a);

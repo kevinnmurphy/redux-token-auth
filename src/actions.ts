@@ -128,9 +128,18 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     storage,
     userAttributes,
     userRegistrationAttributes,
+    localStorageKeysPrefix,
   } = config
 
   const Storage: DeviceStorage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage
+
+  const setHeaders = async function(): Promise<void> {
+    if (localStorageKeysPrefix) {
+      axios.defaults.headers.common['access-token'] = await Storage.getItem(`${localStorageKeysPrefix}access-token`);
+      axios.defaults.headers.common['client'] = await Storage.getItem(`${localStorageKeysPrefix}client`);
+      axios.defaults.headers.common['uid'] = await Storage.getItem(`${localStorageKeysPrefix}uid`);
+    }
+  }
 
   const registerUser = (
     userRegistrationDetails: UserRegistrationDetails,
@@ -151,13 +160,14 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       data[backendKey] = userRegistrationDetails[key]
     })
     try {
+      setHeaders()
       const response: AuthResponse = await axios({
         method: 'POST',
         url: authUrl,
         data,
-      })
-      setAuthHeaders(response.headers, authUrl)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
+      });
+      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(registrationRequestSucceeded(userAttributesToSave))
     } catch (error) {
@@ -171,13 +181,14 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
   ) => async function (dispatch: Dispatch<{}>): Promise<void> {
     dispatch(verifyTokenRequestSent())
     try {
+      setHeaders()
       const response = await axios({
         method: 'GET',
         url: `${authUrl}/validate_token`,
         params: verificationParams,
       })
-      setAuthHeaders(response.headers, authUrl)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
+      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(verifyTokenRequestSucceeded(userAttributesToSave))
     } catch (error) {
@@ -194,6 +205,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       password,
     } = userSignInCredentials
     try {
+      setHeaders()
       const response = await axios({
         method: 'POST',
         url: `${authUrl}/sign_in`,
@@ -202,8 +214,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
           password,
         },
       })
-      setAuthHeaders(response.headers, authUrl)
-      persistAuthHeadersInDeviceStorage(Storage, response.headers, authUrl)
+      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(signInRequestSucceeded(userAttributesToSave))
     } catch (error) {
@@ -214,19 +226,20 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
 
   const signOutUser = () => async function (dispatch: Dispatch<{}>): Promise<void> {
     const userSignOutCredentials: UserSignOutCredentials = {
-      'access-token': await Storage.getItem('access-token') as string,
-      client: await Storage.getItem('client') as string,
-      uid: await Storage.getItem('uid') as string,
+      'access-token': await Storage.getItem(`${localStorageKeysPrefix}access-token`) as string,
+      client: await Storage.getItem(`${localStorageKeysPrefix}client`) as string,
+      uid: await Storage.getItem(`${localStorageKeysPrefix}uid`) as string,
     }
     dispatch(signOutRequestSent())
     try {
+      setHeaders()
       await axios({
         method: 'DELETE',
         url: `${authUrl}/sign_out`,
         data: userSignOutCredentials,
       })
-      deleteAuthHeaders()
-      deleteAuthHeadersFromDeviceStorage(Storage)
+      deleteAuthHeaders(localStorageKeysPrefix)
+      deleteAuthHeadersFromDeviceStorage(Storage, localStorageKeysPrefix)
       dispatch(signOutRequestSucceeded())
     } catch (error) {
       dispatch(signOutRequestFailed())
@@ -235,14 +248,11 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
   }
 
   const verifyCredentials = async (store: Store<{}>): Promise<void> => {
-    if (await Storage.getItem('access-token')) {
+    if (await Storage.getItem(`${localStorageKeysPrefix}access-token`)) {
       const verificationParams: VerificationParams = {
-        'access-token': await Storage.getItem('access-token') as string,
-        client: await Storage.getItem('client') as string,
-        uid: await Storage.getItem('uid') as string,
-        'admin-access-token': await Storage.getItem('admin-access-token') as string,
-        'admin-client': await Storage.getItem('client') as string,
-        'admin-uid': await Storage.getItem('uid') as string,
+        'access-token': await Storage.getItem(`${localStorageKeysPrefix}access-token`) as string,
+        client: await Storage.getItem(`${localStorageKeysPrefix}client`) as string,
+        uid: await Storage.getItem(`${localStorageKeysPrefix}uid`) as string,
       }
       store.dispatch<any>(verifyToken(verificationParams))
     } else {
