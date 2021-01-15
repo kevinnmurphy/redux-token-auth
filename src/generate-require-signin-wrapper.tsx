@@ -18,7 +18,7 @@ const generateRequireSignInWrapper = (
     }
 
     class GatedPage extends React.Component<WrapperProps> {
-      public componentWillReceiveProps(nextProps: WrapperProps): void {
+      public UNSAFE_componentWillReceiveProps(nextProps: WrapperProps): void {
         const {
           history,
           hasVerificationBeenAttempted,
@@ -36,8 +36,8 @@ const generateRequireSignInWrapper = (
         } = this.props
 
         return (hasVerificationBeenAttempted && isSignedIn) ?
-        // React.createElement(PageComponent.type, __assign({}, this.props))
-          <PageComponent {...this.props} />
+        // <PageComponent {...this.props} />
+        React.createElement(PageComponent.type, __assign({}, this.props))
           :
           <div></div>;
       }

@@ -134,11 +134,9 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
   const Storage: DeviceStorage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage
 
   const setHeaders = async function(): Promise<void> {
-    if (localStorageKeysPrefix) {
-      axios.defaults.headers.common['access-token'] = await Storage.getItem(`${localStorageKeysPrefix}access-token`);
-      axios.defaults.headers.common['client'] = await Storage.getItem(`${localStorageKeysPrefix}client`);
-      axios.defaults.headers.common['uid'] = await Storage.getItem(`${localStorageKeysPrefix}uid`);
-    }
+    axios.defaults.headers.common['access-token'] = await Storage.getItem(`${localStorageKeysPrefix}access-token`);
+    axios.defaults.headers.common['client'] = await Storage.getItem(`${localStorageKeysPrefix}client`);
+    axios.defaults.headers.common['uid'] = await Storage.getItem(`${localStorageKeysPrefix}uid`);
   }
 
   const registerUser = (

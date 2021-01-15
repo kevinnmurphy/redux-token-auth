@@ -16,30 +16,12 @@ const authHeaderKeys: Array<string> = [
 ]
 
 export const setAuthHeaders = (headers: AuthHeaders, localStorageKeysPrefix: string): void => {
-  // if (authUrl === '/admin/api/v1/auth') {
-  //   authHeaderKeys.forEach((key: string) => {
-  //     axios.defaults.headers.common[`admin-${key}`] = headers[key]
-  //   })
-  // } else {
-  //   authHeaderKeys.forEach((key: string) => {
-  //     axios.defaults.headers.common[key] = headers[key]
-  //   })
-  // }
   authHeaderKeys.forEach((key: string) => {
     axios.defaults.headers.common[key] = headers[key]
   });
 }
 
 export const persistAuthHeadersInDeviceStorage = (Storage: DeviceStorage, headers: AuthHeaders,  localStorageKeysPrefix: string): void => {
-  // if (authUrl === '/admin/api/v1/auth') {
-  //   authHeaderKeys.forEach((key: string) => {
-  //     Storage.setItem(`admin-${key}`, headers[key])
-  //   })
-  // } else {
-  //   authHeaderKeys.forEach((key: string) => {
-  //     Storage.setItem(key, headers[key])
-  //   })
-  // }
   authHeaderKeys.forEach((key: string) => {
     Storage.setItem(`${localStorageKeysPrefix}${key}`, headers[key])
   });

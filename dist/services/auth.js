@@ -46,29 +46,11 @@ var authHeaderKeys = [
     'uid',
 ];
 exports.setAuthHeaders = function (headers, localStorageKeysPrefix) {
-    // if (authUrl === '/admin/api/v1/auth') {
-    //   authHeaderKeys.forEach((key: string) => {
-    //     axios.defaults.headers.common[`admin-${key}`] = headers[key]
-    //   })
-    // } else {
-    //   authHeaderKeys.forEach((key: string) => {
-    //     axios.defaults.headers.common[key] = headers[key]
-    //   })
-    // }
     authHeaderKeys.forEach(function (key) {
         axios_1.default.defaults.headers.common[key] = headers[key];
     });
 };
 exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, localStorageKeysPrefix) {
-    // if (authUrl === '/admin/api/v1/auth') {
-    //   authHeaderKeys.forEach((key: string) => {
-    //     Storage.setItem(`admin-${key}`, headers[key])
-    //   })
-    // } else {
-    //   authHeaderKeys.forEach((key: string) => {
-    //     Storage.setItem(key, headers[key])
-    //   })
-    // }
     authHeaderKeys.forEach(function (key) {
         Storage.setItem("" + localStorageKeysPrefix + key, headers[key]);
     });
