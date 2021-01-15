@@ -154,7 +154,7 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.setAuthHeaders(response.headers);
                         auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.registrationRequestSucceeded(userAttributesToSave));
@@ -186,7 +186,7 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.setAuthHeaders(response.headers);
                         auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.verifyTokenRequestSucceeded(userAttributesToSave));
@@ -222,7 +222,7 @@ var generateAuthActions = function (config) {
                             })];
                     case 2:
                         response = _a.sent();
-                        auth_1.setAuthHeaders(response.headers, localStorageKeysPrefix);
+                        auth_1.setAuthHeaders(response.headers);
                         auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix);
                         userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
                         dispatch(exports.signInRequestSucceeded(userAttributesToSave));
@@ -266,7 +266,7 @@ var generateAuthActions = function (config) {
                             })];
                     case 5:
                         _c.sent();
-                        auth_1.deleteAuthHeaders(localStorageKeysPrefix);
+                        auth_1.deleteAuthHeaders();
                         auth_1.deleteAuthHeadersFromDeviceStorage(Storage, localStorageKeysPrefix);
                         dispatch(exports.signOutRequestSucceeded());
                         return [3 /*break*/, 7];

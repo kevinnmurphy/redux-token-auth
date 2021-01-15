@@ -15,7 +15,7 @@ const authHeaderKeys: Array<string> = [
   'uid',
 ]
 
-export const setAuthHeaders = (headers: AuthHeaders, localStorageKeysPrefix: string): void => {
+export const setAuthHeaders = (headers: AuthHeaders): void => {
   authHeaderKeys.forEach((key: string) => {
     axios.defaults.headers.common[key] = headers[key]
   });
@@ -27,9 +27,9 @@ export const persistAuthHeadersInDeviceStorage = (Storage: DeviceStorage, header
   });
 }
 
-export const deleteAuthHeaders = (localStorageKeysPrefix: string): void => {
+export const deleteAuthHeaders = (): void => {
   authHeaderKeys.forEach((key: string) => {
-    delete axios.defaults.headers.common[`${localStorageKeysPrefix}${key}`]
+    delete axios.defaults.headers.common[key]
   })
 }
 

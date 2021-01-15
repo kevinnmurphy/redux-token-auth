@@ -164,7 +164,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         url: authUrl,
         data,
       });
-      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      setAuthHeaders(response.headers)
       persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(registrationRequestSucceeded(userAttributesToSave))
@@ -185,7 +185,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         url: `${authUrl}/validate_token`,
         params: verificationParams,
       })
-      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      setAuthHeaders(response.headers)
       persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(verifyTokenRequestSucceeded(userAttributesToSave))
@@ -212,7 +212,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
           password,
         },
       })
-      setAuthHeaders(response.headers, localStorageKeysPrefix)
+      setAuthHeaders(response.headers)
       persistAuthHeadersInDeviceStorage(Storage, response.headers, localStorageKeysPrefix)
       const userAttributesToSave = getUserAttributesFromResponse(userAttributes, response)
       dispatch(signInRequestSucceeded(userAttributesToSave))
@@ -236,7 +236,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         url: `${authUrl}/sign_out`,
         data: userSignOutCredentials,
       })
-      deleteAuthHeaders(localStorageKeysPrefix)
+      deleteAuthHeaders()
       deleteAuthHeadersFromDeviceStorage(Storage, localStorageKeysPrefix)
       dispatch(signOutRequestSucceeded())
     } catch (error) {
