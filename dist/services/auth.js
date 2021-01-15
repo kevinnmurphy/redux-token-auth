@@ -51,7 +51,6 @@ exports.setAuthHeaders = function (headers) {
     });
 };
 exports.persistAuthHeadersInDeviceStorage = function (Storage, headers, localStorageKeysPrefix) {
-    console.log(localStorageKeysPrefix)
     authHeaderKeys.forEach(function (key) {
         Storage.setItem("" + localStorageKeysPrefix + key, headers[key]);
     });
