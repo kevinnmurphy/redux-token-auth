@@ -106,7 +106,6 @@ var generateAuthActions = function (config) {
             return __generator(this, function (_g) {
                 switch (_g.label) {
                     case 0:
-                        if (!localStorageKeysPrefix) return [3 /*break*/, 4];
                         _a = axios_1.default.defaults.headers.common;
                         _b = 'access-token';
                         return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "access-token")];
@@ -122,8 +121,7 @@ var generateAuthActions = function (config) {
                         return [4 /*yield*/, Storage.getItem(localStorageKeysPrefix + "uid")];
                     case 3:
                         _e[_f] = _g.sent();
-                        _g.label = 4;
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
